@@ -36,6 +36,23 @@ td {
   font-weight: 300;
 }
 
+* {
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+input, textarea {
+    -webkit-touch-callout: initial;
+    -webkit-user-select: initial;
+    -khtml-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+}
+
 a {
 	color: #000000;
 	text-decoration: none;
@@ -52,6 +69,82 @@ input, textarea, select {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;  
+}
+
+/******* LOGIN PAGE ********/
+.login-dropdown {
+	cursor: pointer;
+	font-weight: 500;
+	margin-left: 10px;
+	display: inline-block;
+}
+.login-triangle {
+	top: -2px;
+	font-size: 10px;
+	position: relative;
+	display: inline-block;
+    
+    transition: transform 0.5s;
+    -moz-transition: -moz-transform 0.5s;
+    -webkit-transition: -webkit-transform 0.5s;
+}
+.login-wrap.active .login-triangle {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+
+    transition: transform 0.5s;
+    -moz-transition: -moz-transform 0.5s;
+    -webkit-transition: -webkit-transform 0.5s;
+}
+.login-container {
+	max-height: 0px;
+	overflow: hidden;
+    transition: 0.5s ease-out;
+}
+.login-wrap.active > .login-container {
+	max-height: 150px;
+
+    transition: 0.5s ease-out;
+}
+.login-username, .login-password {
+	margin: 5px;
+	border-radius: 3px;
+}
+.login-username.active, .login-password.active {
+	border: 1px solid #F39124;
+}
+
+.login-username.active::-webkit-input-placeholder {
+    color: #F39124;
+}
+.login-username.active::-moz-placeholder {
+    color: #F39124;
+}
+.login-username.active::-ms-placeholder {
+    color: #F39124;
+}
+.login-password.active::-webkit-input-placeholder {
+    color: #F39124;
+}
+.login-password.active::-moz-placeholder {
+    color: #F39124;
+}
+.login-username.active::-ms-placeholder {
+    color: #F39124;
+}
+
+.login-signout {
+	font-weight: 500;
+}
+.login-btn {
+	margin: 5px;
+	color: #FFFFFF;
+	cursor: pointer;
+	padding: 7px 15px;
+	border-radius: 3px;
+	display: inline-block;
+	background-color: #F39124;
 }
 
 /******* HOME PAGE ********/
