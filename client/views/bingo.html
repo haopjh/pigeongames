@@ -1,0 +1,24 @@
+<template name="bingoList">
+	<h3>Current Bingo Games</h3>
+	{{#each getBingos}}
+		<a href="pigeonbingo/{{_id}}">{{_id}}</a>
+	{{/each}}
+</template>
+
+
+<template name="bingogame">
+	<div class="bingo-container">
+
+		<h3>Player List</h3>
+		{{playerList}}
+
+		<h3>Number Grid</h3>
+		<div class="number-grid">
+			{{#each numberList}}
+				<div class="bingo-number">
+					{{this}}
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>

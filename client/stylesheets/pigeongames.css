@@ -160,3 +160,57 @@ input, textarea, select {
 	border-radius: 3px;
 	background-color: #F39124;
 }
+
+
+/******* PLAYERS ********/
+.player-list-wrap {
+	margin-top: 10px;
+}
+.player-item {
+	color: #FFFFFF;
+	cursor: pointer;
+	padding: 4px 9px;
+	margin-right: 5px;
+	border-radius: 3px;
+	background-color: #898B95;
+}
+.player-item.active {
+	background-color: #F39124;
+}
+
+
+/******* GAME ********/
+.pigeonbingo-container {
+	text-align: center;
+}
+.game-start-btn {
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 20px;
+	margin-top: 50px;
+	padding: 10px 15px;
+	border-radius: 3px;
+	display: inline-block;
+	background-color: #F39124;
+}
+.bingo-container {
+	text-align: center;
+}
+.number-grid {
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+}
+.bingo-number {
+	float: left;
+	width: 60px;
+	height: 60px;
+	font-size: 30px;
+	line-height: 60px;
+	position: relative;
+	text-align: center;
+	border: 1px solid #E8E8EA;  
+
+	box-sizing: border-box;
+
+}
