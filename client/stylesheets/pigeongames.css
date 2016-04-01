@@ -137,15 +137,7 @@ input, textarea, select {
 .login-signout {
 	font-weight: 500;
 }
-.login-btn {
-	margin: 5px;
-	color: #FFFFFF;
-	cursor: pointer;
-	padding: 7px 15px;
-	border-radius: 3px;
-	display: inline-block;
-	background-color: #F39124;
-}
+
 
 /******* HOME PAGE ********/
 .homepage-title, .homepage-content {
@@ -159,6 +151,10 @@ input, textarea, select {
 	padding: 10px 15px;
 	border-radius: 3px;
 	background-color: #F39124;
+}
+
+.route-btn[disabled="disabled"] {
+	background-color: #E8E8EA
 }
 
 
@@ -180,37 +176,54 @@ input, textarea, select {
 
 
 /******* GAME ********/
-.pigeonbingo-container {
+.bingo-list-table thead th {
 	text-align: center;
 }
-.game-start-btn {
-	color: #FFFFFF;
-	cursor: pointer;
-	font-size: 20px;
-	margin-top: 50px;
-	padding: 10px 15px;
-	border-radius: 3px;
-	display: inline-block;
-	background-color: #F39124;
+.pigeonbingo-container {
+	text-align: center;
 }
 .bingo-container {
 	text-align: center;
 }
 .number-grid {
-	width: 300px;
-	height: 300px;
+	width: 360px;
+    height: 360px;
 	margin: 0 auto;
 }
 .bingo-number {
 	float: left;
 	width: 60px;
 	height: 60px;
+	cursor: pointer;
 	font-size: 30px;
 	line-height: 60px;
 	position: relative;
 	text-align: center;
 	border: 1px solid #E8E8EA;  
-
 	box-sizing: border-box;
-
+}
+.status-ongoing .highlighted-.bingo-number:hover,
+.status-new  .highlighted-.bingo-number:hover {
+	background-color: #E8E8EA;
+}
+.bingo-number.highlighted-true {
+	color: white;
+	background-color: #F39124;
+}
+.end-game-label {
+    left: 50%;
+    z-index: 1;
+    color: red;
+    width: 250px;
+    font-size: 40px;
+    font-weight: 400;
+    padding: 5px 20px;
+    border: 5px solid;
+    margin-top: 150px;
+    background: white;
+    text-align: center;
+    position: absolute;
+    margin-left: -125px;
+    border-radius: 10px;
+    transform: rotate(-15deg);
 }

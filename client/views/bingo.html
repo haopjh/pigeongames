@@ -1,24 +1,102 @@
-<template name="bingoList">
-	<h3>Current Bingo Games</h3>
-	{{#each getBingos}}
-		<a href="pigeonbingo/{{_id}}">{{_id}}</a>
-	{{/each}}
+<template name="pigeonbingo">
+	<div class="container pigeonbingo-container">
+		<h2 class="homepage-title">Pigeon Bingo Game</h2>
+
+	  	<!-- Find an oponent here!
+		{{> playerList}} -->
+		{{#if hasUser}}
+			<div class="btn btn-warning btn-lg game-start-btn">
+				Start now!
+			</div>
+		{{/if}}
+
+		<h3>Current Bingo Games</h3>
+		<table class="bingo-list-table table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Creator</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each getBingos}}
+					<tr>
+						<td>
+							<a href="pigeonbingo/{{_id}}">{{shortId}}</a>
+						</td>
+						<td>
+							Created by: {{getGameCreator}}
+							&nbsp;&nbsp;
+							<div class="btn btn-sm btn-danger remove-bingo-btn">x</div>
+						</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+
+	</div>
 </template>
 
 
-<template name="bingogame">
+<template name="bingoGame">
+	
+	<a class="btn btn-default" href="/pigeonbingo">Back</a>
 	<div class="bingo-container">
-
 		<h3>Player List</h3>
-		{{playerList}}
+		{{playerList}} <br>
 
-		<h3>Number Grid</h3>
-		<div class="number-grid">
-			{{#each numberList}}
-				<div class="bingo-number">
-					{{this}}
+		{{#if isNotInGame}}
+			{{#if gameCompleted}}
+				<h1>Game ended</h1>
+			{{else}}
+				<br><br>
+				{{#if hasUser}}
+					<div class="btn btn-warning btn-lg join-game-btn">
+						Join Game
+					</div>
+				{{else}}
+					<p class="lead">Please sign in first</p>
+				{{/if}}
+			{{/if}}
+		{{else}}
+			{{#if gameCompleted}}
+				<h4>Game Ended</h4>
+				<h5>Winner: {{getPlayerTurn}}</h5>
+				<div class="end-game-label">
+					{{#if winnerIsYou}}
+						You Won!
+					{{else}}
+						You Lost!
+					{{/if}}
 				</div>
-			{{/each}}
-		</div>
+			{{else}}
+				<h3>Player Turn</h3>
+				{{#if hasSufficientPlayers}}
+					{{getPlayerTurn}}
+					<b>({{#if isYourTurn}}Your Turn!{{else}}Not you{{/if}})</b>
+				{{else}}
+					Not enough players.<br> Please invite your friends to join the game.
+				{{/if}}
+			{{/if}}
+
+			<h3>Number Grid</h3>
+
+			{{#if hasSufficientPlayers}}
+				<div class="number-grid status-{{gameStatus}}">
+					{{#each getUserNumberCard}}
+						<div class="bingo-number highlighted-{{checkedNumber}}" data-number={{this}}>
+							{{this}}
+						</div>
+					{{/each}}
+
+				</div>
+
+				<h3>Selected Numbers</h3>
+				{{#each chosenNumbers}}
+					<span>{{this}}</span>
+				{{/each}}
+			{{/if}}
+		{{/if}}
+			
 	</div>
 </template>
