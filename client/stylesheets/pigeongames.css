@@ -214,7 +214,6 @@ input, textarea, select {
     left: 50%;
     z-index: 1;
     color: red;
-    width: 250px;
     font-size: 40px;
     font-weight: 400;
     padding: 5px 20px;
@@ -225,5 +224,16 @@ input, textarea, select {
     position: absolute;
     margin-left: -125px;
     border-radius: 10px;
-    transform: rotate(-15deg);
+
+    animation-duration: 2s;
+    animation-name: end-label;
+    animation-iteration-count: infinite;
+}
+
+@keyframes end-label {
+	0% {transform: rotate(0deg);}
+	25% {transform: rotate(-15deg);}
+	50% {transform: rotate(15deg);}
+	100% {transform: rotate(0deg);}
+
 }
