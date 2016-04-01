@@ -91,7 +91,7 @@ var checkGameBoard = function(userCard, chosenNumbers) {
 	// if (matchedCard.length === 36) {
 	var matrixIndex = Math.sqrt(matchedCard.length);
 
-	let results = {
+	var results = {
 		horizontal: [],
 		vertical: [],
 		leftDiagonal: false,
@@ -139,7 +139,7 @@ var checkGameBoard = function(userCard, chosenNumbers) {
 	if (matchedCard[0]) {
 		var leftDiagonalValid = true;
 		for(var i=0; i< matrixIndex-1; i++) {
-			let position = (i+1) * matrixIndex + (i+1);
+			var position = (i+1) * matrixIndex + (i+1);
 			if (!matchedCard[position]) {
 				leftDiagonalValid = false;
 				break;
@@ -155,7 +155,7 @@ var checkGameBoard = function(userCard, chosenNumbers) {
 	if(matchedCard[matrixIndex-1]) {
 		var rightDiagonalValid = true;
 		for(var i=0; i< matrixIndex; i++) {
-			let position = (matrixIndex) * (i+1) - (i+1);
+			var position = (matrixIndex) * (i+1) - (i+1);
 
 			if (!matchedCard[position]) {
 				rightDiagonalValid = false;
@@ -188,7 +188,7 @@ Template.bingoGame.events({
 				var someoneWon = true;
 				for(var i=0; i<newBingo.playerList.length; i++) {
 
-					let results = checkGameBoard(newBingo.playerCards[i], newBingo.chosenNumbers);
+					var results = checkGameBoard(newBingo.playerCards[i], newBingo.chosenNumbers);
 
 					if (results.completed < 5) {
 						someoneWon = false;
@@ -230,7 +230,7 @@ Template.bingoGame.rendered = function() {
 	// if (Meteor.user()) {
 	// 	var newBingo = Bingo.findOne(Session.get("bingoId"));
 	// 	var userIndex = newBingo.playerList.indexOf(Meteor.user().username);
-	// 	let results = checkGameBoard(newBingo.playerCards[userIndex], newBingo.chosenNumbers);
+	// 	varresults = checkGameBoard(newBingo.playerCards[userIndex], newBingo.chosenNumbers);
 
 	// 	if (results.completed >= 5 && newBingo.gameStatus !== "completed") {
 	// 		Bingo.update(Session.get("bingoId"), {
