@@ -9,6 +9,27 @@
 				Start now!
 			</div>
 		{{/if}}
+		<h3>Leaderboard</h3>
+		<table class="user-list-table table">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Wins</th>
+					<th>Played</th>
+					<!-- <th>delete?</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				{{#each getAllUsers}}
+					<tr>
+						<td>{{username}}</td>
+						<td>{{profile.wins}}</td>
+						<td>{{profile.played}}</td>
+						<!-- <td class="delete-user" data-id={{_id}}>x</td> -->
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
 
 		<h3>Current Bingo Games</h3>
 		<table class="bingo-list-table table">
@@ -61,14 +82,16 @@
 		{{else}}
 			{{#if gameCompleted}}
 				<h4>Game Ended</h4>
-				<h5>Winner: {{getPlayerTurn}}</h5>
-				<div class="end-game-label">
+				<h5>Winner: {{winners}}</h5>
 					{{#if winnerIsYou}}
+				<div class="end-game-label won">
 						You Won!
-					{{else}}
-						You Lost!
-					{{/if}}
 				</div>
+					{{else}}
+				<div class="end-game-label lost">
+						You Lost!
+				</div>
+					{{/if}}
 			{{else}}
 				<h3>Player Turn</h3>
 				{{#if hasSufficientPlayers}}
@@ -79,9 +102,14 @@
 				{{/if}}
 			{{/if}}
 
-			<h3>Number Grid</h3>
 
 			{{#if hasSufficientPlayers}}
+				<h3>
+					Number Grid
+					{{#if linesFormed}}
+						({{linesFormed}} lines formed)
+					{{/if}}
+				</h3>
 				<div class="number-grid status-{{gameStatus}}">
 					{{#each getUserNumberCard}}
 						<div class="bingo-number highlighted-{{checkedNumber}}" data-number={{this}}>

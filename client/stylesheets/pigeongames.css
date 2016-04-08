@@ -71,6 +71,10 @@ input, textarea, select {
   box-sizing: border-box;  
 }
 
+table thead th {
+	text-align: center;
+}
+
 /******* LOGIN PAGE ********/
 .login-dropdown {
 	cursor: pointer;
@@ -176,9 +180,6 @@ input, textarea, select {
 
 
 /******* GAME ********/
-.bingo-list-table thead th {
-	text-align: center;
-}
 .pigeonbingo-container {
 	text-align: center;
 }
@@ -228,6 +229,10 @@ input, textarea, select {
     animation-duration: 2s;
     animation-name: end-label;
     animation-iteration-count: infinite;
+}
+
+.end-game-label.won {
+	color: green;
 }
 
 @keyframes end-label {

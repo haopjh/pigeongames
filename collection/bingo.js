@@ -48,5 +48,5 @@ Meteor.methods({
 				playerCards: shuffle()
 			}
 		});
-	}
+	},
 });

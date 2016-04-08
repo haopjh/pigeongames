@@ -14,7 +14,11 @@ Template.login.events({
 				if(err){
 					Accounts.createUser({
 						username: username,
-						password: "123"
+						password: "123",
+						profile: {
+							wins: 0,
+							played: 0,
+						}
 							
 					}, function(err) {
 						if(err) {

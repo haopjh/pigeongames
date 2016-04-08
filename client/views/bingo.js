@@ -10,6 +10,10 @@ Template.pigeonbingo.events({
 				console.log("success with id:", bingoId);
 				Router.go("/pigeonbingo/"+bingoId)
 			});
+
+			Meteor.users.update(Meteor.user()._id, {
+				$inc: {"profile.played": 1}
+			});
 		} else {
 			$(".login-wrap").addClass("active");
 			$(".login-btn").trigger("click");
@@ -17,9 +21,15 @@ Template.pigeonbingo.events({
 			
 	},
 	"click .remove-bingo-btn": function() {
-		Bingo.remove(this._id);
+		if (Meteor.user().username === "Junhao") {
+			Bingo.remove(this._id);
+		}
+	},
+	"click .delete-user": function(e) {
+		if (Meteor.user().username === "Junhao") {
+			Meteor.users.remove($(e.currentTarget).attr("data-id"));
+		}
 	}
-
 });
 
 Template.pigeonbingo.helpers({
@@ -31,7 +41,7 @@ Template.pigeonbingo.helpers({
 	},
 	shortId: function() {
 		return this._id.substring(0,4);
-	},
+	}
 });
 
 
@@ -74,6 +84,12 @@ Template.bingoGame.helpers({
 	},
 	hasSufficientPlayers: function() {
 		return this.playerList.length > 1;
+		// return true;
+	},
+	linesFormed: function() {
+		var index = this.playerList.indexOf(Meteor.user().username);
+		var results = checkGameBoard(this.playerCards[index], this.chosenNumbers);
+		return results.completed;
 	}
 });
 
@@ -201,6 +217,10 @@ Template.bingoGame.events({
 								winners: newBingo.playerList[i]
 							}
 						});
+						var user = Meteor.users.findOne({username: newBingo.playerList[i]});
+						Meteor.users.update({_id: user._id}, {
+							$inc: {"profile.wins": 1}
+						});
 					}
 				}
 				if (!someoneWon) {
@@ -223,6 +243,9 @@ Template.bingoGame.events({
 	"click .join-game-btn": function() {
 		Meteor.call("addPlayer", Session.get("bingoId"), 
 			Meteor.user().username);
+		Meteor.users.update(Meteor.user()._id, {
+			$inc: {"profile.played": 1}
+		});
 	}
 });
 
