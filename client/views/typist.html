@@ -1,0 +1,16 @@
+<template name="typist">
+	<div class="container pigeonbingo-container">
+		<h2 class="homepage-title">Typist Game</h2>
+	</div>
+	{{> typistGame}}
+	
+</template>
+
+<template name="typistGame">
+	<div class="container">
+		Generated Letter: <div class="letter-container"> </div>
+		<input class="input-container" type="text" maxlength="1"/><br>
+		Typed Phrase:<span class="typed-container"></span><br>
+		Typed Count:<span class="count-container">0</span>
+	</div>
+</template>

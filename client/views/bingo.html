@@ -1,6 +1,6 @@
-<template name="pigeonbingo">
+<template name="bingo">
 	<div class="container pigeonbingo-container">
-		<h2 class="homepage-title">Pigeon Bingo Game</h2>
+		<h2 class="homepage-title">Bingo Game</h2>
 
 	  	<!-- Find an oponent here!
 		{{> playerList}} -->
@@ -43,7 +43,7 @@
 				{{#each getBingos}}
 					<tr>
 						<td>
-							<a href="pigeonbingo/{{_id}}">{{shortId}}</a>
+							<a href="bingo/{{_id}}">{{shortId}}</a>
 						</td>
 						<td>
 							Created by: {{getGameCreator}}
@@ -61,7 +61,7 @@
 
 <template name="bingoGame">
 	
-	<a class="btn btn-default" href="/pigeonbingo">Back</a>
+	<a class="btn btn-default" href="/bingo">Back</a>
 	<div class="bingo-container">
 		<h3>Player List</h3>
 		{{playerList}} <br>

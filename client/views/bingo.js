@@ -1,4 +1,4 @@
-Template.pigeonbingo.events({
+Template.bingo.events({
 	"click .game-start-btn": function(e, template) {
 		// var username = template.$(".player-item.active").html().trim();
 		if (Meteor.user()) {
@@ -8,7 +8,7 @@ Template.pigeonbingo.events({
 
 			Meteor.call('newBingo', bingo, function(err, bingoId) {
 				console.log("success with id:", bingoId);
-				Router.go("/pigeonbingo/"+bingoId)
+				Router.go("/bingo/"+bingoId)
 			});
 
 			Meteor.users.update(Meteor.user()._id, {
@@ -32,7 +32,7 @@ Template.pigeonbingo.events({
 	}
 });
 
-Template.pigeonbingo.helpers({
+Template.bingo.helpers({
 	getBingos: function() {
 		return Bingo.find({gameStatus: /new|ongoing/});
 	},
@@ -83,110 +83,16 @@ Template.bingoGame.helpers({
 		}
 	},
 	hasSufficientPlayers: function() {
-		return this.playerList.length > 1;
-		// return true;
+		// return this.playerList.length > 1;
+		return true;
 	},
 	linesFormed: function() {
 		var index = this.playerList.indexOf(Meteor.user().username);
 		var results = checkGameBoard(this.playerCards[index], this.chosenNumbers);
+		console.log(results);
 		return results.completed;
 	}
 });
-
-var checkGameBoard = function(userCard, chosenNumbers) {
-	//get matched card
-	var matchedCard = [];
-	userCard.forEach(function(number) {
-		if(chosenNumbers.indexOf(number.toString()) > -1) {
-			matchedCard.push(true);
-		} else {
-			matchedCard.push(false);
-		}
-	});
-
-	// if (matchedCard.length === 36) {
-	var matrixIndex = Math.sqrt(matchedCard.length);
-
-	var results = {
-		horizontal: [],
-		vertical: [],
-		leftDiagonal: false,
-		rightDiagonal: false,
-		completed: 0
-	};
-
-	for(var i=0; i<matchedCard.length; i++) {
-		var state = matchedCard[i];
-		// Checks horizontal
-		if(i%matrixIndex === 0 && matchedCard[i]) {
-			var horizontalValid = true;
-			for(var j=i+1; j<matrixIndex+i; j++) {
-				if (!matchedCard[j]) {
-					horizontalValid = false;
-					break;
-				}
-			}
-			if (horizontalValid) {
-				// console.log(i/matrixIndex + 1 + " horizontal row is valid");
-				results.horizontal.push(i/matrixIndex);
-				results.completed++;
-			}
-				
-		}
-
-		//Checks vertical
-		if(i < matrixIndex && matchedCard[i]) {
-			var verticalValid = true;
-			for(var j=i+1; j<matchedCard.length; j += matrixIndex) {
-				if (!matchedCard[j]) {
-					verticalValid = false;
-					break;
-				}
-			}
-			if (verticalValid) {
-				// console.log(i + 1 + " vertical row is valid");
-				results.vertical.push(i);
-				results.completed++;
-			}
-		}
-	}
-
-	//Checks diagonal
-	if (matchedCard[0]) {
-		var leftDiagonalValid = true;
-		for(var i=0; i< matrixIndex-1; i++) {
-			var position = (i+1) * matrixIndex + (i+1);
-			if (!matchedCard[position]) {
-				leftDiagonalValid = false;
-				break;
-			}
-		}
-		if(leftDiagonalValid) {
-			// console.log("left diagonal is valid");
-			results.leftDiagonal = true;
-			results.completed++;
-		}
-	}
-
-	if(matchedCard[matrixIndex-1]) {
-		var rightDiagonalValid = true;
-		for(var i=0; i< matrixIndex; i++) {
-			var position = (matrixIndex) * (i+1) - (i+1);
-
-			if (!matchedCard[position]) {
-				rightDiagonalValid = false;
-				break;
-			}
-		}
-		if(rightDiagonalValid) {
-			// console.log("right diagonal is valid");
-			results.rightDiagonal = true;
-			results.completed++;
-		}
-	}
-
-	return results;
-}
 
 Template.bingoGame.events({
 	"click .bingo-number": function(e) {
@@ -265,4 +171,99 @@ Template.bingoGame.rendered = function() {
 	// 	}
 	// }
 		
+}
+
+var checkGameBoard = function(userCard, chosenNumbers) {
+	//get matched card
+	var matchedCard = [];
+	userCard.forEach(function(number) {
+		if(chosenNumbers.indexOf(number.toString()) > -1) {
+			matchedCard.push(true);
+		} else {
+			matchedCard.push(false);
+		}
+	});
+
+	// if (matchedCard.length === 36) {
+	var matrixIndex = Math.sqrt(matchedCard.length);
+
+	var results = {
+		horizontal: [],
+		vertical: [],
+		leftDiagonal: false,
+		rightDiagonal: false,
+		completed: 0
+	};
+
+	for(var i=0; i<matchedCard.length; i++) {
+		var state = matchedCard[i];
+		// Checks horizontal
+		if(i%matrixIndex === 0 && matchedCard[i]) {
+			var horizontalValid = true;
+			for(var j=i+1; j<matrixIndex+i; j++) {
+				if (!matchedCard[j]) {
+					horizontalValid = false;
+					break;
+				}
+			}
+			if (horizontalValid) {
+				// console.log(i/matrixIndex + 1 + " horizontal row is valid");
+				results.horizontal.push(i/matrixIndex);
+				results.completed++;
+			}
+				
+		}
+
+		//Checks vertical
+		if(i < matrixIndex && matchedCard[i]) {
+			var verticalValid = true;
+			for(var j=i; j<matchedCard.length; j += matrixIndex) {
+				if (!matchedCard[j]) {
+					verticalValid = false;
+					break;
+				}
+			}
+			if (verticalValid) {
+				// console.log(i + 1 + " vertical row is valid");
+				results.vertical.push(i);
+				results.completed++;
+			}
+		}
+	}
+
+	//Checks diagonal
+	if (matchedCard[0]) {
+		var leftDiagonalValid = true;
+		for(var i=0; i< matrixIndex-1; i++) {
+			var position = (i+1) * matrixIndex + (i+1);
+			if (!matchedCard[position]) {
+				leftDiagonalValid = false;
+				break;
+			}
+		}
+		if(leftDiagonalValid) {
+			// console.log("left diagonal is valid");
+			results.leftDiagonal = true;
+			results.completed++;
+		}
+	}
+
+	if(matchedCard[matrixIndex-1]) {
+		var rightDiagonalValid = true;
+		for(var i=0; i< matrixIndex; i++) {
+			var position = (matrixIndex) * (i+1) - (i+1);
+
+			if (!matchedCard[position]) {
+				rightDiagonalValid = false;
+				break;
+			}
+		}
+		if(rightDiagonalValid) {
+			// console.log("right diagonal is valid");
+			results.rightDiagonal = true;
+			results.completed++;
+		}
+	}
+
+	return results;
 }
